@@ -124,7 +124,7 @@ jobs:
         - export PATH=$MVN_HOME/bin:$PATH
         - sudo apt-get install openjdk-8-jdk
         - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64
-      before_script: &setup_generate_license
+      before_script: &setup_generate_license_arm64
         - sudo add-apt-repository ppa:deadsnakes/ppa
         - sudo apt-get update && sudo apt-get install python3.6 python3-pip python3-setuptools -y
         - python3.6 -m pip install wheel  # install wheel first explicitly
@@ -586,7 +586,7 @@ jobs:
       after_script:  web-console/script/druid stop
     - name: "web console end-to-end test"
       arch: arm64
-      before_install: *setup_generate_license
+      before_install: *setup_generate_license_arm64
       install:
         - if [ "${TRAVIS_CPU_ARCH}" == "arm64" ]; then
           export MVN_HOME=$HOME/apache-maven-3.6.3;
