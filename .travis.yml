@@ -308,7 +308,7 @@ jobs:
         # retry in case of network error
         - travis_retry curl -o codecov.sh -s https://codecov.io/bash
         - travis_retry bash codecov.sh -X gcov
-    - &test_processing_module
+    - &test_processing_module_arm64
       name: "(openjdk8) processing module test"
       arch: arm64
       env:
@@ -370,7 +370,7 @@ jobs:
       name: "(openjdk11) processing module test"
       arch: amd64
       jdk: openjdk11
-    - <<: *test_processing_module
+    - <<: *test_processing_module_arm64
       name: "(openjdk11) processing module test"
       arch: arm64
       jdk: openjdk11  
@@ -382,7 +382,7 @@ jobs:
       before_script: &setup_sqlcompat
       - export DRUID_USE_DEFAULT_VALUE_FOR_NULL=false
     - &test_processing_module_sqlcompat
-      <<: *test_processing_module
+      <<: *test_processing_module_arm64
       name: "(openjdk8) processing module test (SQL Compatibility)"
       arch: arm64
       before_script: &setup_sqlcompat
@@ -404,7 +404,7 @@ jobs:
       env:
       - MAVEN_PROJECTS='indexing-hadoop,indexing-service,extensions-core/kafka-indexing-service,extensions-core/kinesis-indexing-service'
     - &test_indexing_module
-      <<: *test_processing_module
+      <<: *test_processing_module_arm64
       name: "(openjdk8) indexing modules test"
       arch: arm64
       env:
@@ -446,7 +446,7 @@ jobs:
       env:
         - MAVEN_PROJECTS='server'
     - &test_server_module
-      <<: *test_processing_module
+      <<: *test_processing_module_arm64
       name: "(openjdk8) server module test"
       arch: arm64
       env:
@@ -518,7 +518,7 @@ jobs:
       env:
         - MAVEN_PROJECTS='!processing,!indexing-hadoop,!indexing-service,!extensions-core/kafka-indexing-service,!extensions-core/kinesis-indexing-service,!server,!web-console,!integration-tests'
 
-    - &test_other_modules
+    - &test_other_modules_arm64
       <<: *test_processing_module
       name: "(openjdk8) other modules test"
       arch: arm64
@@ -529,7 +529,7 @@ jobs:
       name: "(openjdk11) other modules test"
       arch: amd64
       jdk: openjdk11
-    - <<: *test_other_modules
+    - <<: *test_other_modules_arm64
       name: "(openjdk11) other modules test"
       arch: arm64
       jdk: openjdk11  
@@ -540,7 +540,7 @@ jobs:
       arch: amd64
       before_script: *setup_sqlcompat
     - &test_other_modules_sqlcompat
-      <<: *test_other_modules
+      <<: *test_other_modules_arm64
       name: "(openjdk8) other modules test (SQL Compatibility)"
       arch: arm64
       before_script: *setup_sqlcompat  
