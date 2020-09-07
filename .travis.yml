@@ -128,6 +128,7 @@ jobs:
         - sudo add-apt-repository ppa:deadsnakes/ppa
         - sudo apt-get update && sudo apt-get install python3.6 python3-pip python3-setuptools -y
         - python3.6 -m pip install wheel  # install wheel first explicitly
+        - pip uninstall pyyaml
         - python3.6 -m pip install pyyaml
       script:
         - >
