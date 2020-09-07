@@ -37,7 +37,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <sigar.base.version>1.6.5</sigar.base.version>
-    <sigar.version>${sigar.base.version}.132</sigar.version>
+    <sigar.version>${sigar.base.version}.132-7</sigar.version>
   </properties>
 
   <dependencies>
