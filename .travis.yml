@@ -526,8 +526,15 @@ jobs:
       env:
         - MAVEN_PROJECTS='!processing,!indexing-hadoop,!indexing-service,!extensions-core/kafka-indexing-service,!extensions-core/kinesis-indexing-service,!server,!web-console,!integration-tests'
       install: 
-        - sudo apt-get install libhyperic-sigar-java  
-
+        - export MVN_HOME=$HOME/apache-maven-3.6.3
+        - wget https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz -P $HOME
+        - tar xzvf $HOME/apache-maven-3.6.3-bin.tar.gz -C $HOME
+        - export PATH=$MVN_HOME/bin:$PATH
+        - sudo apt-get install openjdk-8-jdk
+        - sudo apt-get install libhyperic-sigar-java
+        - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64
+        - MAVEN_OPTS='-Xmx3000m' travis_wait 15 ${MVN} clean install -q -ff ${MAVEN_SKIP} ${MAVEN_SKIP_TESTS} -T1C 
+         
     - <<: *test_other_modules
       name: "(openjdk11) other modules test"
       arch: amd64
