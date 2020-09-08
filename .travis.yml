@@ -531,8 +531,11 @@ jobs:
         - tar xzvf $HOME/apache-maven-3.6.3-bin.tar.gz -C $HOME
         - export PATH=$MVN_HOME/bin:$PATH
         - sudo apt-get install openjdk-8-jdk
-        - sudo apt-get install libhyperic-sigar-java
         - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64
+        - wget https://netcologne.dl.sourceforge.net/project/sigar/sigar/1.6/hyperic-sigar-1.6.4.tar.gz
+        - tar xvf hyperic-sigar-1.6.4.tar.gz
+        - cd hyperic-sigar-1.6.4
+        - sudo cp sigar-bin/lib/libsigar-`dpkg --print-architecture`-`uname -s | tr '[:upper:]' '[:lower:]'`.so /usr/lib
         - MAVEN_OPTS='-Xmx3000m' travis_wait 15 ${MVN} clean install -q -ff ${MAVEN_SKIP} ${MAVEN_SKIP_TESTS} -T1C 
          
     - <<: *test_other_modules
